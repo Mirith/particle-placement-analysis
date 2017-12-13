@@ -42,13 +42,30 @@ barplot(table(x$CONSTRUCTION, x$MODE),
 
 #' #Register
 
-# barplot looks fine
+# barplot looks almost fine
 barplot(table(x$CONSTRUCTION, x$REGISTER), 
-        ylab = "number", 
-        xlab = "register",
+        xlab = "number",
         beside = TRUE,
         legend = TRUE,
+        horiz = TRUE,
+        las = 1,
         col = colors[1:2])
+
+# almost okay
+barplot(table(x$CONSTRUCTION, x$REGISTER), 
+        legend = TRUE,
+        col = colors[1:2])
+
+
+# Pie Chart with Percentages
+# tweak this, this could work
+slices <- c(10, 12, 4, 16, 8) 
+lbls <- c("US", "UK", "Australia", "Germany", "France")
+pct <- round(slices/sum(slices)*100)
+lbls <- paste(lbls, pct) # add percents to labels 
+lbls <- paste(lbls,"%",sep="") # ad % to labels 
+pie(slices,labels = lbls, col=rainbow(length(lbls)),
+    main="Pie Chart of Countries")
 
 #' #Subregister
 
@@ -56,25 +73,34 @@ barplot(table(x$CONSTRUCTION, x$REGISTER),
 table(x$CONSTRUCTION, x$SUBREGISTER)
 
 # doesn't look like all register labels are represented
+# probably don't need to see all of them anyway
 barplot(table(x$CONSTRUCTION, x$SUBREGISTER), 
         ylab = "number", 
         xlab = "subregister",
         legend = TRUE,
         col = colors[1:2])
-
-# not helpful
-plot(x$CONSTRUCTION, x$SUBREGISTER, pch = 19)
-
-# sort of helpful? really confusing too
-mosaicplot(table(x$SUBREGISTER, x$CONSTRUCTION), shade = TRUE)
+# there are a few really high spikes which is slightly concerning
 
 #' #Particle
 
-# says very little, will need a different formatting
 barplot(table(x$CONSTRUCTION, x$PARTICLE), 
         ylab = "number", 
         legend = TRUE,
         col = colors[1:2])
+# looks pretty messy
+# will need a different format
+
+mosaicplot(table(x$PARTICLE, x$CONSTRUCTION))
+
+library(ggplot2)
+# install.packages("ggdendro")
+library(ggdendro)
+
+theme_set(theme_bw())
+
+hc <- hclust(dist(table(x$PARTICLE, x$CONSTRUCTION)), "ave")
+ggdendrogram(hc, rotate = TRUE, size = 2)
+# clear, but interpretable? 
 
 #' #Type
 
@@ -87,11 +113,14 @@ barplot(table(x$CONSTRUCTION, x$TYPE),
 
 #' #Length
 
-# this is funny, might need another format, but looks fine ish
+# prop.table gives probability compared to entire table, not useful
 barplot(table(x$CONSTRUCTION, x$LENGTH), 
-        ylab = "number", 
+        ylab = "percentage", 
+        xlab = "length",
         legend = TRUE,
         col = colors[1:2])
+# as length increases, the likelihood that a speaker will choose V_DO_PRT over V_PRT_DO increases
+
 
 # trying a glm (with 3 way interactions between all variables) makes R very sad
 # tree is much faster
