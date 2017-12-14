@@ -16,8 +16,6 @@
 #' Question: which independent variables, if any, influence the dependent variable's value? 
 
 ################################################################################
-# how to get y labels of horizantal bar graphs to display closer to graph/
-# and not get cut off?
 # V_PRT_DO v V_DO_PRT -- what do those signify?  Particle and direct object?
 # example is unclear
 
