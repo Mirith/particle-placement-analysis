@@ -105,8 +105,7 @@ barplot(table(x$CONSTRUCTION, x$TYPE),
         ylab = "number", 
         legend = TRUE,
         col = colors[1:2])
-# doesn't really help... 
-# need some other thing to help visualize   
+# huge variance in numbers   
 
 
 #' ##Length
@@ -119,8 +118,8 @@ barplot(table(x$CONSTRUCTION, x$LENGTH),
 # as length increases, the likelihood that a speaker will choose V_DO_PRT over V_PRT_DO increases
 
 #' ###Overall concerns
-#' seems like there are a lot of variables, and a wide range of numbers  
-#' ex some types have a total of 7 entries while another has more than 1500  
+#' It seems like there are a lot of variables, and a wide range of numbers.  
+#' Ex: some types have a total of 7 entries while another has more than 1500.  
 
 #' #Making a tree
 
